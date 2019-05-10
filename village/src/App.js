@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import axios from "axios";
-
-import Smurf from "./components/Smurf";
+import { Button, Row, Col } from "reactstrap";
 
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
@@ -40,24 +39,35 @@ class App extends React.Component {
     console.log(this.state.smurfs);
     return (
       <div className="App">
-        <nav>
-          <h1 className="Smurf-header">Smurfs</h1>
-          <div className="nav-links">
-            <NavLink exact to="/">
-              Smurfs
-            </NavLink>
-            <NavLink to="smurf-form">Add Smurf</NavLink>
-          </div>
-        </nav>
-        <Route
-          exact
-          path="/"
-          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
-        />
-        <Route
-          path="/smurf-form"
-          render={props => <SmurfForm {...props} addSmurf={this.addSmurf} />}
-        />
+        <Row>
+          <Col sm="4">
+            <h1 className="Smurf-header">Smurfs</h1>
+            <div className="Row-links">
+              <Button outline color="primary">
+                <NavLink exact to="/">
+                  Smurfs
+                </NavLink>
+              </Button>
+              <Button outline color="primary">
+                <NavLink to="smurf-form"> Add-Smurf</NavLink>
+              </Button>
+            </div>
+          </Col>
+          <Col sm="4">
+            <Route
+              path="/smurf-form"
+              render={props => (
+                <SmurfForm {...props} addSmurf={this.addSmurf} />
+              )}
+            />
+            <Route
+              exact
+              path="/"
+              render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
+            />
+          </Col>
+          <Col sm="4" />
+        </Row>
       </div>
     );
   }
@@ -67,16 +77,16 @@ export default App;
 
 // return (
 //   <div className="App">
-//     <nav>
+//     <Row>
 //       <h1 className="store-header">Dustin's Trinkets</h1>
-//       <div className="nav-links">
+//       <div className="Row-links">
 //         <NavLink to="/item-form">Add Item</NavLink>
 //         <NavLink exact to="/">
 //           Home
 //         </NavLink>
 //         <NavLink to="/item-list">Shop</NavLink>
 //       </div>
-//     </nav>
+//     </Row>
 
 //     <Route exact path="/" component={Home} />
 //     <Route

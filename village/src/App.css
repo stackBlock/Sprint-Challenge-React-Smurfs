@@ -1,7 +1,4 @@
 .App {
   text-align: center;
-}
-.nav-links {
-  display: flex;
-  align-content: flex-start;
+  margin-top: 100px;
 }
