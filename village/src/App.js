@@ -1,22 +1,18 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-} from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import axios from "axios";
 
-import Smurf from './components/Smurf';
+import Smurf from "./components/Smurf";
 
-import './App.css';
-import SmurfForm from './components/SmurfForm';
-import Smurfs from './components/Smurfs';
+import "./App.css";
+import SmurfForm from "./components/SmurfForm";
+import Smurfs from "./components/Smurfs";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      smurfs: [],
+      smurfs: []
     };
   }
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
@@ -25,65 +21,49 @@ class App extends React.Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:3333/smurfs')
+      .get("http://localhost:3333/smurfs")
       .then(res => this.setState({ smurfs: res.data }))
       .catch(error => console.log(error));
-  };
-  
+  }
 
   addSmurf = smurf => {
     axios
-      .post('http://localhost:3333/smurfs', smurf)
+      .post("http://localhost:3333/smurfs", smurf)
       .then(res => {
         this.setState({ smurfs: res.data });
-        this.props.history.push('/');
+        this.props.history.push("/");
       })
       .catch(err => console.log(err));
   };
 
-
-
-
   render() {
-    console.log(this.state.smurfs)
+    console.log(this.state.smurfs);
     return (
       <div className="App">
-      <nav>            
-        <h1 className="Smurf-header">Smurfs</h1>
-        <div className="nav-links">
-        <NavLink exact to="/">Smurfs</NavLink>
-        <NavLink to="smurf-form">Add Smurf</NavLink>
-        </div>
-      </nav>
-        <Route 
-        exact path="/"
-        render={props => (
-          <Smurfs
-          {...props}
-          smurfs={this.state.smurfs} 
-          />
-        )}
-         />
-         <Route
-         path="/smurfs/:id"
-         render={props => (
-           <Smurf
-           {...props}
-           items={this.state.smurfs}
-           />   
-           )} 
-           />
+        <nav>
+          <h1 className="Smurf-header">Smurfs</h1>
+          <div className="nav-links">
+            <NavLink exact to="/">
+              Smurfs
+            </NavLink>
+            <NavLink to="smurf-form">Add Smurf</NavLink>
+          </div>
+        </nav>
         <Route
-        path="/smurf-form"
-        render={props => <SmurfForm {...props} addSmurf={this.addSmurf} />}
-            />
+          exact
+          path="/"
+          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
+        />
+        <Route
+          path="/smurf-form"
+          render={props => <SmurfForm {...props} addSmurf={this.addSmurf} />}
+        />
       </div>
     );
   }
 }
 
 export default App;
-
 
 // return (
 //   <div className="App">
@@ -104,7 +84,7 @@ export default App;
 //       path="/item-list"
 //       render={props => (
 //         <ItemsList
-//           {...props} 
+//           {...props}
 //           items={this.state.items}
 //         />
 //       )}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class SmurfForm extends Component {
   state = {
@@ -9,17 +9,13 @@ class SmurfForm extends Component {
     }
   };
 
-  changeHandler = ev => {
-    ev.persist();
-    let value = ev.target.value;
-    if (ev.target.name === "price") {
-      value = parseInt(value, 10);
-    }
-
+  changeHandler = event => {
+    event.persist();
+    let value = event.target.value;
     this.setState(prevState => ({
       smurf: {
         ...prevState.smurf,
-        [ev.target.name]: value
+        [event.target.name]: value
       }
     }));
   };
@@ -33,7 +29,7 @@ class SmurfForm extends Component {
     return (
       <div className="SmurfForm">
         <form onSubmit={this.handleSubmit}>
-        <input
+          <input
             type="string"
             name="name"
             onChange={this.changeHandler}

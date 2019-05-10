@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+.nav-links {
+  display: flex;
+  align-content: flex-start;
+}
