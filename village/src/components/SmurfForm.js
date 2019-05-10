@@ -1,51 +1,60 @@
 import React, { Component } from 'react';
 
 class SmurfForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      height: ''
-    };
-  }
+  state = {
+    smurf: {
+      name: "",
+      age: "",
+      height: ""
+    }
+  };
 
-  addSmurf = event => {
-    event.preventDefault();
-    // add code to create the smurf using the api
+  changeHandler = ev => {
+    ev.persist();
+    let value = ev.target.value;
+    if (ev.target.name === "price") {
+      value = parseInt(value, 10);
+    }
 
-    this.setState({
-      name: '',
-      age: '',
-      height: ''
-    });
-  }
+    this.setState(prevState => ({
+      smurf: {
+        ...prevState.smurf,
+        [ev.target.name]: value
+      }
+    }));
+  };
 
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.addSmurf(this.state.smurf);
   };
 
   render() {
     return (
       <div className="SmurfForm">
-        <form onSubmit={this.addSmurf}>
-          <input
-            onChange={this.handleInputChange}
-            placeholder="name"
-            value={this.state.name}
+        <form onSubmit={this.handleSubmit}>
+        <input
+            type="string"
             name="name"
+            onChange={this.changeHandler}
+            placeholder="name"
+            value={this.state.smurf.name}
           />
+
           <input
-            onChange={this.handleInputChange}
-            placeholder="age"
-            value={this.state.age}
+            type="string"
             name="age"
+            onChange={this.changeHandler}
+            placeholder="age"
+            value={this.state.smurf.age}
           />
+
           <input
-            onChange={this.handleInputChange}
-            placeholder="height"
-            value={this.state.height}
+            type="string"
             name="height"
+            onChange={this.changeHandler}
+            placeholder="height"
+            value={this.state.smurf.height}
           />
           <button type="submit">Add to the village</button>
         </form>
